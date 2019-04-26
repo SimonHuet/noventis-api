@@ -1,0 +1,7 @@
+[package]
+name = "nivantis-api"
+version = "0.1.0"
+authors = ["Simon Huet <simon.huet@epsi.fr>"]
+edition = "2018"
+
+[dependencies]
