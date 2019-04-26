@@ -29,7 +29,7 @@ jobs:
           command: rustup run nightly cargo test
       - run:
           name : Clippy lint
-          command : cargo run --bin cargo-clippy --manifest-path=path_to_clippys_Cargo.toml
+          command :  rustup component add clippy --toolchain=nightly && cargo clippy
       - save_cache:
           key: project-cache
           paths:
