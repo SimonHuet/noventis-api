@@ -19,11 +19,11 @@ jobs:
             rustfmt --version
             cargo fmt
       - run:
-          name: Stable Build
+          name: Nightly Build
           command: |
-            rustup run stable rustc --version --verbose
-            rustup run stable cargo --version --verbose
-            rustup run stable cargo build
+            rustup run nightly rustc --version --verbose
+            rustup run nightly cargo --version --verbose
+            rustup run nightly cargo build
       - run:
           name: Test
           command: rustup run stable cargo test
