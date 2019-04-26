@@ -29,7 +29,10 @@ jobs:
           command: rustup run nightly cargo test
       - run:
           name : Clippy lint
-          command : rustup component add clippy-preview && cargo clippy-preview
+          command : |
+            rustup install nightly
+            cargo +nightly install clippy --vers 0.0.200 --force
+            cargo +nightly clippy --release -- -Dclippy_pedantic
       - save_cache:
           key: project-cache
           paths:
