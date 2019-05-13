@@ -1,4 +1,9 @@
-fn main() {
+#![feature(proc_macro_hygiene, decl_macro)]
 
- println!("Hello world ! " );
+#[macro_use] extern crate rocket;
+
+mod user;
+
+fn main() {
+   user::create_routes()
 }
