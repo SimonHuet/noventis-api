@@ -1,5 +1,3 @@
-pub mod user;
-
 #[get("/all")]
 fn all() -> String {
     format!("Hello, year old named!")
