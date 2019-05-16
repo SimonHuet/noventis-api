@@ -5,7 +5,7 @@ executors:
     docker:
       - image: circleci/rust:latest
 jobs:
-  checkout code:
+  checkoutCode:
     executor: my-executor   
     steps:
       - checkout
@@ -14,7 +14,7 @@ jobs:
     executor: my-executor
     steps:
       - run: cargo build
-  check formatting: 
+  checkFormatting: 
     executor: my-executor
     steps:
       - run:
@@ -26,14 +26,14 @@ jobs:
           command: cargo test
 workflows:
   version: 2
-  
-  checkout and formatting:
+
+  checkout&formatting:
     jobs:
-      - checkout code
-      - check formatting:
+      - checkoutCode
+      - checkFormatting:
         requires:
-          - checkout code
-  TU and build:
+          - checkoutCode
+  TU&build:
     jobs:
       - test
       - build:
