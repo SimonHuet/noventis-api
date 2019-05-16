@@ -5,7 +5,7 @@ executors:
     docker:
       - image: circleci/rust:latest
 jobs:
-  checkout:
+  checkout code:
     executor: my-executor   
     steps:
       - checkout
@@ -28,7 +28,7 @@ jobs:
 workflows:
   checkout and formatting:
     jobs:
-      - checkout
+      - checkout code
       - check formatting:
         requires:
           - checkout
