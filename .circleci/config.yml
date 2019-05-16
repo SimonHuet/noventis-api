@@ -24,7 +24,6 @@ jobs:
       - checkout
       - run:
           command: |
-            ls -la
             rustup component add rustfmt
             cargo fmt
 
@@ -32,6 +31,7 @@ jobs:
     executor: my-executor
     steps:
       - checkout
+      - run: rustup default nightly
       - run: cargo test
 
 workflows:
