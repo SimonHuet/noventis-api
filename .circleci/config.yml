@@ -26,14 +26,13 @@ jobs:
       - run:
           command: cargo test
 workflows:
-  version: 2
   checkout and formatting:
     jobs:
       - checkout
       - check formatting:
         requires:
           - checkout
-   TU and build:
+  TU and build:
     jobs:
       - check formatting
       - build:
