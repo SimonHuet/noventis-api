@@ -25,6 +25,8 @@ jobs:
       - run:
           command: cargo test
 workflows:
+  version: 2
+  
   checkout and formatting:
     jobs:
       - checkout code
