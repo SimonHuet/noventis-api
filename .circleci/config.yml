@@ -13,8 +13,7 @@ jobs:
   build:
     executor: my-executor
     steps:
-      -run:
-        command: cargo build
+      - run: cargo build
   check formatting: 
     executor: my-executor
     steps:
