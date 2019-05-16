@@ -1,34 +1,52 @@
-version: 2
+version: 2.1
+
+executors:
+  my-executor:
+    docker:
+      - image: circleci/rust:latest
 
 jobs:
-  build:
-    docker:
-      # The image used to build our project, build
-      # your own using the Dockerfile provided below
-      # and replace here. I put my own image here for
-      # the example.
-      - image: abronan/rust-circleci:latest
-      
+  checkoutCode:
+    executor: my-executor
     steps:
       - checkout
-      - restore_cache:
-          key: project-cache
+      - run: rustup default nightly
+
+  build:
+    executor: my-executor
+    steps:
+      - checkout
+      - run: rustup default nightly
+      - run: cargo build
+
+  checkFormatting:
+    executor: my-executor
+    steps:
+      - checkout
       - run:
-          name: Check formatting
           command: |
-            rustfmt --version
+            rustup component add rustfmt
             cargo fmt
-      - run:
-          name: Nightly Build
-          command: |
-            rustup run nightly rustc --version --verbose
-            rustup run nightly cargo --version --verbose
-            rustup run nightly cargo build
-      - run:
-          name: Test
-          command: rustup run nightly cargo test
-      - save_cache:
-          key: project-cache
-          paths:
-            - "~/.cargo"
-            - "./target"
+
+  test:
+    executor: my-executor
+    steps:
+      - checkout
+      - run: rustup default nightly
+      - run: cargo test
+
+workflows:
+  version: 2
+
+  Format_Test_Build:
+    jobs:
+      - checkoutCode
+      - checkFormatting:
+          requires:
+            - checkoutCode
+      - test:
+          requires:
+            - checkFormatting
+      - build:
+          requires:
+            - test
