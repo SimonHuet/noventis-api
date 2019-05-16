@@ -5,3 +5,12 @@ authors = ["Simon Huet <simon.huet@epsi.fr>"]
 edition = "2018"
 
 [dependencies]
+rocket = "0.4.0"
+rocket_codegen = "0.4.0"
+diesel = { version="1.4.2", features=["postgres"] }
+diesel_codegen = { version="0.16.1", features=["postgres"] }
+
+[dependencies.rocket_contrib]
+version = "*"
+default-features = false
+features = ["json"]
