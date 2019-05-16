@@ -10,10 +10,7 @@ jobs:
     executor: my-executor
     steps:
       - checkout
-      - run: 
-          command: |
-            rustup default nightly
-            ls -la
+      - run: rustup default nightly
 
   build:
     executor: my-executor
@@ -33,7 +30,7 @@ jobs:
 workflows:
   version: 2
 
-  checkout_and_formatting:
+  Format_Test_Build:
     jobs:
       - checkoutCode
       - checkFormatting:
