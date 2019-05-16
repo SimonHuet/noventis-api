@@ -22,6 +22,7 @@ jobs:
     steps:
       - run:
           command: |
+            ls -la
             rustup component add rustfmt
             cargo fmt
 
