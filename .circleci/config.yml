@@ -22,7 +22,7 @@ jobs:
     steps:
       - run: 
         commande: |
-          rustup component add rustfmt
+          rustc --version
           cargo fmt
 
   test:
