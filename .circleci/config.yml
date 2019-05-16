@@ -20,7 +20,10 @@ jobs:
   checkFormatting:
     executor: my-executor
     steps:
-      - run: cargo fmt
+      - run: 
+        commande: |
+          rustup component add rustfmt
+          cargo fmt
 
   test:
     executor: my-executor
