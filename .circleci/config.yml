@@ -16,6 +16,7 @@ jobs:
     executor: my-executor
     steps:
       - checkout
+      - run: rustup default nightly
       - run: cargo build
 
   checkFormatting:
