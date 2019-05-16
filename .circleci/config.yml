@@ -1,12 +1,12 @@
 version: 2.1
 
-executors: 
+executors:
   my-executor:
     docker:
       - image: circleci/rust:latest
 jobs:
   checkoutCode:
-    executor: my-executor   
+    executor: my-executor
     steps:
       - checkout
       - run: rustup default nightly
@@ -14,7 +14,7 @@ jobs:
     executor: my-executor
     steps:
       - run: cargo build
-  checkFormatting: 
+  checkFormatting:
     executor: my-executor
     steps:
       - run:
@@ -27,13 +27,13 @@ jobs:
 workflows:
   version: 2
 
-  checkout&formatting:
+  checkout_and_formatting:
     jobs:
       - checkoutCode
       - checkFormatting:
         requires:
           - checkoutCode
-  TU&build:
+  TU_and_build:
     jobs:
       - test
       - build:
