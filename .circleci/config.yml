@@ -31,10 +31,10 @@ workflows:
       - checkout code
       - check formatting:
         requires:
-          - checkout
+          - checkout code
   TU and build:
     jobs:
-      - check formatting
+      - test
       - build:
         requires:
-          - build
+          - test
