@@ -4,26 +4,31 @@ executors:
   my-executor:
     docker:
       - image: circleci/rust:latest
+
 jobs:
   checkoutCode:
     executor: my-executor
     steps:
       - checkout
       - run: rustup default nightly
+
   build:
     executor: my-executor
     steps:
       - run: cargo build
+
   checkFormatting:
     executor: my-executor
     steps:
       - run:
           command: cargo fmt
+
   test:
     executor: my-executor
     steps:
       - run:
           command: cargo test
+
 workflows:
   version: 2
 
