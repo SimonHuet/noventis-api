@@ -34,11 +34,11 @@ workflows:
     jobs:
       - checkoutCode
       - checkFormatting:
-        requires:
-          - checkoutCode
+          requires:
+            - checkoutCode
   TU_and_build:
     jobs:
       - test
       - build:
-        requires:
-          - test
+          requires:
+            - test
