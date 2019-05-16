@@ -21,9 +21,9 @@ jobs:
     executor: my-executor
     steps:
       - run:
-        command: |
-          rustup component add rustfmt
-          cargo fmt
+          command: |
+            rustup component add rustfmt
+            cargo fmt
 
   test:
     executor: my-executor
