@@ -20,14 +20,12 @@ jobs:
   checkFormatting:
     executor: my-executor
     steps:
-      - run:
-          command: cargo fmt
+      - run: cargo fmt
 
   test:
     executor: my-executor
     steps:
-      - run:
-          command: cargo test
+      - run: cargo test
 
 workflows:
   version: 2
