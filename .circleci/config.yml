@@ -10,7 +10,10 @@ jobs:
     executor: my-executor
     steps:
       - checkout
-      - run: rustup default nightly
+      - run: 
+          command: |
+            rustup default nightly
+            ls -la
 
   build:
     executor: my-executor
@@ -36,9 +39,9 @@ workflows:
       - checkFormatting:
           requires:
             - checkoutCode
-  TU_and_build:
-    jobs:
-      - test
+      - test:
+          requires:
+            - checkFormatting
       - build:
           requires:
             - test
