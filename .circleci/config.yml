@@ -16,6 +16,8 @@ jobs:
       - run: rustup default nightly
       - persist_to_workspace:
           root: api
+          paths:
+            - src
 
 
   build:
