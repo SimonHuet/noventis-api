@@ -10,7 +10,6 @@ jobs:
   checkoutCode:
     executor: my-executor
     steps:
-      - run : rm -rf /tmp
       - checkout
       - run: rustup default nightly
       - persist_to_workspace:
