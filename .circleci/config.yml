@@ -13,6 +13,7 @@ jobs:
       - run: mkdir api
       - run: cd api
       - checkout
+      - run: rm -rf .git
       - run: rustup default nightly
       - persist_to_workspace:
           root: api
