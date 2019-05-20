@@ -4,7 +4,7 @@ executors:
   my-executor:
     docker:
       - image: circleci/rust:latest
-    working_directory: /tmp
+    working_directory: $CIRCLE_WORKING_DIRECTORY
 
 jobs:
   checkoutCode:
@@ -13,9 +13,9 @@ jobs:
       - checkout
       - run: rustup default nightly
       - persist_to_workspace:
-          root: api
+          root: $CIRCLE_WORKING_DIRECTORY
           paths:
-            - src
+            - $CIRCLE_WORKING_DIRECTORY/src
 
 
   build:
