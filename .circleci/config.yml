@@ -23,6 +23,7 @@ jobs:
     steps:
       - attach_workspace: 
           at: ~/
+      - run: rustup default nigthly
       - run: cargo build
 
   checkFormatting:
