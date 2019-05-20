@@ -1,4 +1,4 @@
-use rocket_contrib::json::{JsonValue };
+use rocket_contrib::json::{JsonValue , Json };
 mod doctor;
 use doctor::{Doctor};
 
@@ -10,10 +10,10 @@ fn all() -> JsonValue {
     })
 }
 
-/*#[post("/", data = "<doctor>")]
-fn create(user: Json<Doctor>)-> Json<Doctor> {
+#[post("/", data = "<doctor>")]
+fn create(doctor: Json<Doctor>)-> Json<Doctor> {
     doctor
-}*/
+}
 
 #[get("/<id>")]
 fn by_id(id:i32) -> String {
@@ -26,6 +26,6 @@ pub fn create_routes(){
      routes![
          all,
          by_id,
-         //create
+         create
          ]).launch();
 }
