@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  db:
+    build: docker/postgresql
+    environment:
+      - POSTGRES_PASSWORD=noventis
+      - POSTGRES_USER=noventis
+      - POSTGRES_DB=noventis
+    ports:
+      - 15432:5432
+    restart: unless-stopped
