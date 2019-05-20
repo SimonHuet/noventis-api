@@ -4,7 +4,7 @@ executors:
   my-executor:
     docker:
       - image: circleci/rust:latest
-    working_directory: /tmp
+    working_directory: ~/src
 
 jobs:
   checkoutCode:
@@ -14,7 +14,7 @@ jobs:
       - checkout
       - run: rustup default nightly
       - persist_to_workspace:
-          root: api
+          root: ~/
           paths:
             - src
 
@@ -23,14 +23,14 @@ jobs:
     executor: my-executor
     steps:
       - attach_workspace: 
-          at: /tmp/api
+          at: ~/
       - run: cargo build
 
   checkFormatting:
     executor: my-executor
     steps:
       - attach_workspace: 
-          at: /tmp/api
+          at: ~/
       - run:
           command: |
             rustup component add rustfmt
@@ -40,7 +40,7 @@ jobs:
     executor: my-executor
     steps:
       - attach_workspace: 
-          at: /tmp/api
+          at: ~/
       - run: cargo test
 
 workflows:
