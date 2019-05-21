@@ -1,30 +1,30 @@
-#![feature(plugin, proc_macro_hygiene, decl_macro)]
-
+#![feature(decl_macro, proc_macro_hygiene)]
 #[macro_use] extern crate rocket;
-#[macro_use] extern crate serde_derive;
-#[macro_use] extern crate rocket_contrib;
 #[macro_use] extern crate diesel;
-#[macro_use] extern crate r2d2;
-#[macro_use] extern crate r2d2_diesel;
+extern crate dotenv;
+extern crate r2d2;
+extern crate r2d2_diesel;
+extern crate rocket_contrib;
+#[macro_use]
+extern crate serde_derive;
 
-pub mod models;
-pub mod schema;
-pub mod routes;
-pub mod dbconnection;
+use dotenv::dotenv;
 
-use routes::root;
-use routes::doctor;
-use routes::formation;
+mod doctors;
+mod formations;
+mod schema;
+mod connection;
 
 fn main() {
-   //doctor::create_routes();
-   rocket::ignite().mount("/api", 
-        routes![
-                root::index,
-                doctor::all,
-                doctor::post,
-                doctor::by_id,
-                formation::all,
-                formation::by_id
-                ]).launch();
+    dotenv().ok();
+    
+    rocket::ignite()
+        .manage(connection::init_pool())
+        .mount("/doctors",
+               doctors::router::get_routes()
+        )
+        .mount("/formations",
+               formations::router::get_routes()
+        )
+        .launch();
 }
