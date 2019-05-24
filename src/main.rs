@@ -12,6 +12,7 @@ use dotenv::dotenv;
 
 mod doctors;
 mod formations;
+mod doctors_formations;
 mod schema;
 mod connection;
 
@@ -26,5 +27,8 @@ fn main() {
         .mount("/formations",
                formations::router::get_routes()
         )
+        .mount("/doctors-formations",
+              doctors_formations::router::get_routes()
+       )
         .launch();
 }

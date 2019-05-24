@@ -32,11 +32,11 @@ pub fn get(id: i32, connection: DbConn) -> Result<Json<Formation>, Status> {
 #[post("/", format = "application/json", data = "<formation>")]
 pub fn post(formation: Json<InsertableFormation>, connection: DbConn) -> Result<status::Created<Json<Formation>>, Status> {
     formations::repository::insert(formation.into_inner(), &connection)
-        .map(|formation| person_created(formation))
+        .map(|formation| formation_created(formation))
         .map_err(|error| error_status(error))
 }
 
-fn person_created(formation: Formation) -> status::Created<Json<Formation>> {
+fn formation_created(formation: Formation) -> status::Created<Json<Formation>> {
     status::Created(
         format!("{host}:{port}/formation/{id}", host = host(), port = port(), id=formation.id ).to_string(),
         Some(Json(formation)))
