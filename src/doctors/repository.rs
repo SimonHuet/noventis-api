@@ -13,13 +13,13 @@ pub fn get(id: i32, connection: &PgConnection) -> QueryResult<Doctor> {
     doctors::table.find(id).get_result::<Doctor>(connection)
 }
 
-pub fn insert(doctor: Doctor, connection: &PgConnection) -> QueryResult<Doctor> {
+pub fn insert(doctor: InsertableDoctor, connection: &PgConnection) -> QueryResult<Doctor> {
     diesel::insert_into(doctors::table)
-        .values(&InsertableDoctor::from_doctor(doctor))
+        .values(doctor)
         .get_result(connection)
 }
 
-pub fn update(id: i32, doctor: Doctor, connection: &PgConnection) -> QueryResult<Doctor> {
+pub fn update(id: i32, doctor: InsertableDoctor, connection: &PgConnection) -> QueryResult<Doctor> {
     diesel::update(doctors::table.find(id))
         .set(&doctor)
         .get_result(connection)
@@ -30,21 +30,10 @@ pub fn delete(id: i32, connection: &PgConnection) -> QueryResult<usize> {
         .execute(connection)
 }
 
-#[derive(Insertable, AsChangeset)]
+#[derive(Insertable, AsChangeset, Serialize, Deserialize )]
 #[table_name = "doctors"]
-struct InsertableDoctor {
+pub struct InsertableDoctor {
     first_name: String,
     last_name: String,
     birthdate: String
-}
-
-impl InsertableDoctor {
-
-    fn from_doctor(doctor: Doctor) -> InsertableDoctor {
-        InsertableDoctor {
-            first_name: doctor.first_name,
-            last_name: doctor.last_name,
-            birthdate: doctor.birthdate
-        }
-    }
 }

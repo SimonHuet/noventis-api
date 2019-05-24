@@ -5,6 +5,7 @@ use doctors;
 use doctors::Doctor;
 use rocket::http::Status;
 use rocket::response::status;
+use doctors::repository::InsertableDoctor;
 use rocket_contrib::json::Json;
 
 #[get("/")]
@@ -29,7 +30,7 @@ pub fn get(id: i32, connection: DbConn) -> Result<Json<Doctor>, Status> {
 }
 
 #[post("/", format = "application/json", data = "<doctor>")]
-pub fn post(doctor: Json<Doctor>, connection: DbConn) -> Result<status::Created<Json<Doctor>>, Status> {
+pub fn post(doctor: Json<InsertableDoctor>, connection: DbConn) -> Result<status::Created<Json<Doctor>>, Status> {
     doctors::repository::insert(doctor.into_inner(), &connection)
         .map(|doctor| doctor_created(doctor))
         .map_err(|error| error_status(error))
@@ -51,7 +52,7 @@ fn port() -> String {
 }
 
 #[put("/<id>", format = "application/json", data = "<doctor>")]
-pub fn put(id: i32, doctor: Json<Doctor>, connection: DbConn) -> Result<Json<Doctor>, Status> {
+pub fn put(id: i32, doctor: Json<InsertableDoctor>, connection: DbConn) -> Result<Json<Doctor>, Status> {
     doctors::repository::update(id, doctor.into_inner(), &connection)
         .map(|doctor| Json(doctor))
         .map_err(|error| error_status(error))

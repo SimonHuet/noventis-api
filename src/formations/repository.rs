@@ -13,15 +13,15 @@ pub fn get(id: i32, connection: &PgConnection) -> QueryResult<Formation> {
     formations::table.find(id).get_result::<Formation>(connection)
 }
 
-pub fn insert(formation: Formation, connection: &PgConnection) -> QueryResult<Formation> {
+pub fn insert(formation: InsertableFormation, connection: &PgConnection) -> QueryResult<Formation> {
     diesel::insert_into(formations::table)
-        .values(&InsertableFormation::from_formation(formation))
+        .values(formation)
         .get_result(connection)
 }
 
-pub fn update(id: i32, formation: Formation, connection: &PgConnection) -> QueryResult<Formation> {
+pub fn update(id: i32, formation: InsertableFormation, connection: &PgConnection) -> QueryResult<Formation> {
     diesel::update(formations::table.find(id))
-        .set(&formation)
+        .set(formation)
         .get_result(connection)
 }
 
@@ -30,19 +30,9 @@ pub fn delete(id: i32, connection: &PgConnection) -> QueryResult<usize> {
         .execute(connection)
 }
 
-#[derive(Insertable, AsChangeset)]
+#[derive(Insertable, AsChangeset , Serialize, Deserialize)]
 #[table_name = "formations"]
-struct InsertableFormation {
+pub struct InsertableFormation {
     name: String,
     description: String,
-}
-
-impl InsertableFormation {
-
-    fn from_formation(formation: Formation) -> InsertableFormation {
-        InsertableFormation {
-            name: formation.name,
-            description: formation.description
-        }
-    }
 }

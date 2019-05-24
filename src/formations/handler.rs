@@ -6,6 +6,7 @@ use formations::Formation;
 use rocket::http::Status;
 use rocket::response::status;
 use rocket_contrib::json::Json;
+use formations::repository::InsertableFormation;
 
 #[get("/")]
 pub fn all(connection: DbConn) -> Result<Json<Vec<Formation>>, Status> {
@@ -29,7 +30,7 @@ pub fn get(id: i32, connection: DbConn) -> Result<Json<Formation>, Status> {
 }
 
 #[post("/", format = "application/json", data = "<formation>")]
-pub fn post(formation: Json<Formation>, connection: DbConn) -> Result<status::Created<Json<Formation>>, Status> {
+pub fn post(formation: Json<InsertableFormation>, connection: DbConn) -> Result<status::Created<Json<Formation>>, Status> {
     formations::repository::insert(formation.into_inner(), &connection)
         .map(|formation| person_created(formation))
         .map_err(|error| error_status(error))
@@ -50,7 +51,7 @@ fn port() -> String {
 }
 
 #[put("/<id>", format = "application/json", data = "<formation>")]
-pub fn put(id: i32, formation: Json<Formation>, connection: DbConn) -> Result<Json<Formation>, Status> {
+pub fn put(id: i32, formation: Json<InsertableFormation>, connection: DbConn) -> Result<Json<Formation>, Status> {
     formations::repository::update(id, formation.into_inner(), &connection)
         .map(|formation| Json(formation))
         .map_err(|error| error_status(error))

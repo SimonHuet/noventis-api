@@ -7,7 +7,6 @@ table! {
     }
 }
 
-
 table! {
     formations (id) {
         id -> Int4,
