@@ -4,5 +4,5 @@ CREATE TABLE Doctors(
   id SERIAL PRIMARY KEY,
   first_name VARCHAR NOT NULL,
   last_name VARCHAR NOT NULL,
-  birthdate TIMESTAMP NOT NULL
+  birthdate VARCHAR NOT NULL
 );
