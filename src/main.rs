@@ -7,12 +7,14 @@ extern crate r2d2_diesel;
 extern crate rocket_contrib;
 #[macro_use]
 extern crate serde_derive;
+extern crate serde_json;
 
 use dotenv::dotenv;
 
 mod doctors;
 mod formations;
 mod doctors_formations;
+mod forms;
 mod schema;
 mod connection;
 
@@ -30,5 +32,7 @@ fn main() {
         .mount("/doctors-formations",
               doctors_formations::router::get_routes()
        )
+       .mount("/forms",
+              forms::router::get_routes())
         .launch();
 }

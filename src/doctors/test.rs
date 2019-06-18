@@ -1,5 +1,4 @@
 use diesel::insert_into;
-use diesel::select;
 #[cfg(test)]
 use diesel::debug_query;
 #[cfg(test)]

@@ -11,7 +11,7 @@ use rocket_contrib::json::Json;
 #[get("/")]
 pub fn all(connection: DbConn) -> Result<Json<Vec<Doctor>>, Status> {
     doctors::repository::all(&connection)
-        .map(|doctors| Json(doctors))
+        .map(|doctor| Json(doctor))
         .map_err(|error| error_status(error))
 }
 
