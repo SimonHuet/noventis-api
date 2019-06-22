@@ -6,6 +6,7 @@ use formations::Formation;
 pub mod handler;
 pub mod repository;
 pub mod router;
+pub mod test;
 
 #[derive(Identifiable, Queryable, Associations, Serialize , Deserialize)]
 #[belongs_to(Doctor)]

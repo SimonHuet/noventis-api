@@ -35,5 +35,6 @@ pub fn delete(id: i32, connection: &PgConnection) -> QueryResult<usize> {
 pub struct InsertableDoctor {
     pub first_name: String,
     pub last_name: String,
-    pub birthdate: String
+    pub birthdate: String,
+    pub pharmacy_id: Option<i32>
 }

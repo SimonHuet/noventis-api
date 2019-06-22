@@ -4,6 +4,7 @@ use schema::formations;
 pub mod handler;
 pub mod repository;
 pub mod router;
+pub mod test;
 
 #[derive(Queryable, Identifiable, AsChangeset, Serialize, Deserialize, Associations)]
 pub struct Formation {
