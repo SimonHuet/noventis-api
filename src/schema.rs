@@ -4,6 +4,7 @@ table! {
         first_name -> Varchar,
         last_name -> Varchar,
         birthdate -> Varchar,
+        pharmacy_id -> Nullable<Int4>,
     }
 }
 
@@ -31,6 +32,18 @@ table! {
     }
 }
 
+table! {
+    pharmacies (id) {
+        id -> Int4,
+        street -> Varchar,
+        street_number -> Int4,
+        city -> Varchar,
+        longitude -> Float8,
+        latitude -> Float8,
+    }
+}
+
+joinable!(doctors -> pharmacies (pharmacy_id));
 joinable!(doctors_formations -> doctors (doctor_id));
 joinable!(doctors_formations -> formations (formation_id));
 
@@ -39,4 +52,5 @@ allow_tables_to_appear_in_same_query!(
     doctors_formations,
     formations,
     forms,
+    pharmacies,
 );

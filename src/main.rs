@@ -15,6 +15,7 @@ mod doctors;
 mod formations;
 mod doctors_formations;
 mod forms;
+mod pharmacies;
 mod schema;
 mod connection;
 
@@ -33,6 +34,10 @@ fn main() {
               doctors_formations::router::get_routes()
        )
        .mount("/forms",
-              forms::router::get_routes())
-        .launch();
+              forms::router::get_routes()
+       )
+       .mount("/pharmacies",
+              pharmacies::router::get_routes()
+       )
+       .launch();
 }
