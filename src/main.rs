@@ -17,6 +17,7 @@ mod doctors_formations;
 mod forms;
 mod pharmacies;
 mod products;
+mod pharmacies_purchases_products;
 mod schema;
 mod connection;
 
@@ -42,6 +43,8 @@ fn main() {
        )
        .mount("/products",
               products::router::get_routes()
+       ).mount("/purchases",
+              pharmacies_purchases_products::router::get_routes()
        )
        .launch();
 }

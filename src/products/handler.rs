@@ -29,18 +29,18 @@ pub fn get(id: i32, connection: DbConn) -> Result<Json<Product>, Status> {
         .map_err(|error| error_status(error))
 }
 
-#[post("/", format = "application/json", data = "<Product>")]
-pub fn post(Product: Json<InsertableProduct>, connection: DbConn) -> Result<status::Created<Json<Product>>, Status> {
-    products::repository::insert(Product.into_inner(), &connection)
+#[post("/", format = "application/json", data = "<product>")]
+pub fn post(product: Json<InsertableProduct>, connection: DbConn) -> Result<status::Created<Json<Product>>, Status> {
+    products::repository::insert(product.into_inner(), &connection)
         .map(|product| product_created(product))
         .map_err(|error| error_status(error))
 }
 
-fn product_created(Product: Product) -> status::Created<Json<Product>> {
+fn product_created(product: Product) -> status::Created<Json<Product>> {
     
     status::Created(
-        format!("{host}:{port}/products/{id}", host = host(), port = port(), id=Product.id).to_string(),
-        Some(Json(Product)))
+        format!("{host}:{port}/products/{id}", host = host(), port = port(), id=product.id).to_string(),
+        Some(Json(product)))
 }
 
 fn host() -> String {
@@ -51,9 +51,9 @@ fn port() -> String {
     env::var("ROCKET_PORT").expect("ROCKET_PORT must be set")
 }
 
-#[put("/<id>", format = "application/json", data = "<Product>")]
-pub fn put(id: i32, Product: Json<InsertableProduct>, connection: DbConn) -> Result<Json<Product>, Status> {
-    products::repository::update(id, Product.into_inner(), &connection)
+#[put("/<id>", format = "application/json", data = "<product>")]
+pub fn put(id: i32, product: Json<InsertableProduct>, connection: DbConn) -> Result<Json<Product>, Status> {
+    products::repository::update(id, product.into_inner(), &connection)
         .map(|product| Json(product))
         .map_err(|error| error_status(error))
 }
