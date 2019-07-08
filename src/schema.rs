@@ -44,27 +44,27 @@ table! {
 }
 
 table! {
-    pharmacies_purchases_products (product_id, pharmacies_id) {
+    pharmacies_purchases_products (products_id, pharmacies_id) {
         quantity -> Int4,
         date -> Varchar,
         price -> Int4,
         pharmacies_id -> Int4,
-        product_id -> Int4,
+        products_id -> Int4,
     }
 }
 
 table! {
-    pharmacies_sales_products (product_id, pharmacies_id) {
+    pharmacies_sales_products (products_id, pharmacies_id) {
         quantity -> Int4,
         date -> Varchar,
         price -> Int4,
         pharmacies_id -> Int4,
-        product_id -> Int4,
+        products_id -> Int4,
     }
 }
 
 table! {
-    product (id) {
+    products (id) {
         id -> Int4,
         name -> Varchar,
     }
@@ -74,9 +74,9 @@ joinable!(doctors -> pharmacies (pharmacy_id));
 joinable!(doctors_formations -> doctors (doctor_id));
 joinable!(doctors_formations -> formations (formation_id));
 joinable!(pharmacies_purchases_products -> pharmacies (pharmacies_id));
-joinable!(pharmacies_purchases_products -> product (product_id));
+joinable!(pharmacies_purchases_products -> products (products_id));
 joinable!(pharmacies_sales_products -> pharmacies (pharmacies_id));
-joinable!(pharmacies_sales_products -> product (product_id));
+joinable!(pharmacies_sales_products -> products (products_id));
 
 allow_tables_to_appear_in_same_query!(
     doctors,
@@ -86,5 +86,5 @@ allow_tables_to_appear_in_same_query!(
     pharmacies,
     pharmacies_purchases_products,
     pharmacies_sales_products,
-    product,
+    products,
 );
