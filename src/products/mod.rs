@@ -4,8 +4,6 @@ use schema::products;
 pub mod handler;
 pub mod repository;
 pub mod router;
-#[cfg(test)]
-pub mod test;
 
 #[derive(Queryable,Identifiable,AsChangeset, Serialize, Deserialize, Associations)]
 pub struct Product {

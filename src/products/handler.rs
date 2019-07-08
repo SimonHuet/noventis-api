@@ -11,7 +11,7 @@ use rocket_contrib::json::Json;
 #[get("/")]
 pub fn all(connection: DbConn) -> Result<Json<Vec<Product>>, Status> {
     products::repository::all(&connection)
-        .map(|Product| Json(Product))
+        .map(|product| Json(product))
         .map_err(|error| error_status(error))
 }
 
@@ -25,14 +25,14 @@ fn error_status(error: Error) -> Status {
 #[get("/<id>")]
 pub fn get(id: i32, connection: DbConn) -> Result<Json<Product>, Status> {
     products::repository::get(id, &connection)
-        .map(|Product| Json(Product))
+        .map(|product| Json(product))
         .map_err(|error| error_status(error))
 }
 
 #[post("/", format = "application/json", data = "<Product>")]
 pub fn post(Product: Json<InsertableProduct>, connection: DbConn) -> Result<status::Created<Json<Product>>, Status> {
     products::repository::insert(Product.into_inner(), &connection)
-        .map(|Product| product_created(Product))
+        .map(|product| product_created(product))
         .map_err(|error| error_status(error))
 }
 
@@ -54,7 +54,7 @@ fn port() -> String {
 #[put("/<id>", format = "application/json", data = "<Product>")]
 pub fn put(id: i32, Product: Json<InsertableProduct>, connection: DbConn) -> Result<Json<Product>, Status> {
     products::repository::update(id, Product.into_inner(), &connection)
-        .map(|Product| Json(Product))
+        .map(|product| Json(product))
         .map_err(|error| error_status(error))
 }
 
